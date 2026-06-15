@@ -521,7 +521,7 @@ async function loadDigest() {
     // 2. Appel Claude API
     const prompt = `${config.prompt}\n\nVoici les articles disponibles :\n\n${articlesText}`;
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://pitlane-lake.vercel.app/api/digest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -536,7 +536,7 @@ async function loadDigest() {
     const text = data.content?.[0]?.text || "";
 
     // 3. Trouver un titre accrocheur
-    const titleRes = await fetch("https://api.anthropic.com/v1/messages", {
+    const titleRes = await fetch("https://pitlane-lake.vercel.app/api/digest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
