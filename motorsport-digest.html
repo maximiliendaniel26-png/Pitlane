@@ -49,6 +49,7 @@
     font-size: 22px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    cursor: pointer;
   }
 
   .logo span { color: var(--red); }
@@ -69,6 +70,10 @@
     gap: 0;
     overflow-x: auto;
     scrollbar-width: none;
+    position: sticky;
+    top: 56px;
+    background: var(--bg);
+    z-index: 99;
   }
   .tabs::-webkit-scrollbar { display: none; }
 
@@ -106,7 +111,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .section-label {
@@ -144,19 +149,44 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .digest-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    margin-bottom: 20px;
-    overflow: hidden;
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .digest-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+  .article-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+
+  .article-card:hover { border-color: #444; }
+  .article-card:active { transform: scale(0.99); }
+
+  .article-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+  }
+
+  .article-image.img-loading {
+    background: linear-gradient(90deg, #1a1a1a 25%, #232323 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+  }
+
+  .article-content { padding: 16px 18px 18px; }
+
+  .article-meta {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 8px;
   }
 
   .series-badge {
@@ -173,32 +203,126 @@
   .badge-WRC { background: #1e3a5f; color: var(--wrc); }
   .badge-WEC { background: #4a3000; color: var(--wec); }
 
-  .digest-title {
+  .article-list-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 18px;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    flex: 1;
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
   }
 
-  .digest-body {
-    padding: 20px;
-    font-size: 14px;
-    line-height: 1.75;
-    color: #c8c5c0;
+  .article-excerpt {
+    font-size: 13px;
+    color: #9a958d;
+    margin-top: 6px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .digest-body p { margin-bottom: 12px; }
-  .digest-body p:last-child { margin-bottom: 0; }
+  .reader-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    overflow-y: auto;
+    display: none;
+  }
 
-  .skeleton {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 20px;
+  .reader-overlay.open { display: block; }
+
+  .reader-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 10;
+  }
+
+  .btn-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 8px 0;
+  }
+
+  .reader-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+  }
+
+  .reader-body-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+  }
+
+  .reader-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .reader-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
     margin-bottom: 20px;
   }
 
+  .reader-text {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #d4d1cb;
+  }
+
+  .reader-text p { margin-bottom: 18px; }
+  .reader-text p:last-child { margin-bottom: 0; }
+  .reader-text p:first-of-type::first-letter {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    float: left;
+    line-height: 0.8;
+    margin: 8px 8px 0 0;
+    color: var(--red);
+  }
+
+  .skeleton-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .skeleton-img {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(90deg, #1a1a1a 25%, #232323 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+  }
+  .skeleton-text-block { padding: 16px 18px 18px; }
   .skel-line {
     height: 12px;
     background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
@@ -207,9 +331,7 @@
     margin-bottom: 10px;
     border-radius: 2px;
   }
-
   @keyframes shimmer { to { background-position: -200% 0; } }
-
   .skel-line.short  { width: 40%; }
   .skel-line.medium { width: 70%; }
   .skel-line.full   { width: 100%; }
@@ -219,7 +341,6 @@
     padding: 48px 24px;
     color: var(--muted);
   }
-
   .error-msg .icon { font-size: 32px; margin-bottom: 12px; }
   .error-msg p { font-size: 14px; }
 
@@ -228,7 +349,6 @@
     padding: 80px 24px;
     color: var(--muted);
   }
-
   .empty-state .big {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 64px;
@@ -238,7 +358,6 @@
     line-height: 1;
     margin-bottom: 16px;
   }
-
   .empty-state p { font-size: 14px; margin-bottom: 24px; }
 
   footer {
@@ -252,6 +371,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    z-index: 50;
   }
 
   .red-line { width: 24px; height: 2px; background: var(--red); }
@@ -268,13 +388,15 @@
     main { padding: 24px 16px 64px; }
     .tabs { padding: 0 16px; }
     .tab { padding: 12px 14px; }
+    .reader-title { font-size: 25px; }
+    .reader-body-wrap { padding: 24px 18px 80px; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Pit<span>Lane</span></div>
+  <div class="logo" onclick="closeReader()">Pit<span>Lane</span></div>
   <div class="header-right">
     <span class="timestamp" id="last-update">—</span>
   </div>
@@ -316,6 +438,25 @@
   </div>
 </main>
 
+<div class="reader-overlay" id="reader-overlay">
+  <div class="reader-header">
+    <button class="btn-back" onclick="closeReader()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Retour
+    </button>
+  </div>
+  <img class="reader-image img-loading" id="reader-image" alt="">
+  <div class="reader-body-wrap">
+    <div class="reader-meta">
+      <span class="series-badge" id="reader-badge"></span>
+    </div>
+    <h1 class="reader-title" id="reader-title"></h1>
+    <div class="reader-text" id="reader-text"></div>
+  </div>
+</div>
+
 <footer>
   <div class="red-line"></div>
   <span>Synthèse IA · Sources vérifiées</span>
@@ -332,12 +473,16 @@ const SERIES_CONFIG = {
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si une course a eu lieu récemment, la synthèse complète du dernier Grand Prix (résultats, déroulé de course, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat, transferts ou rumeurs de pilotes, actu technique/réglementaire, déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "Formula 1 podium champagne celebration", "Formula 1 pit stop tyre change", "Formula 1 race start grid"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
   "articles": [
     {
       "category": "Résultat course" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
+      "excerpt": "phrase d'accroche courte",
+      "imageQuery": "mots-clés anglais pour image",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -351,12 +496,16 @@ Date d'aujourd'hui : ${new Date().toLocaleDateString('fr-FR')}.`
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si un rallye a eu lieu récemment, la synthèse complète du dernier rallye (résultats, déroulé, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat, transferts ou rumeurs pilotes/co-pilotes, actu technique/réglementaire, déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "rally car gravel jump", "rally car snow stage", "WRC rally car forest stage"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
   "articles": [
     {
       "category": "Résultat rallye" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
+      "excerpt": "phrase d'accroche courte",
+      "imageQuery": "mots-clés anglais pour image",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -370,12 +519,16 @@ Date d'aujourd'hui : ${new Date().toLocaleDateString('fr-FR')}.`
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si une course a eu lieu récemment, la synthèse complète de la dernière course/des 24H du Mans (résultats, déroulé, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat constructeurs/pilotes, transferts ou rumeurs, actu technique/réglementaire (Hypercar, LMGT3...), déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "Le Mans 24 hours night race", "endurance racing car pit lane", "Le Mans Hypercar track"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
   "articles": [
     {
       "category": "Résultat course" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
+      "excerpt": "phrase d'accroche courte",
+      "imageQuery": "mots-clés anglais pour image",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -394,7 +547,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     tab.classList.add('active');
     currentSeries = tab.dataset.series;
     if (cache[currentSeries]) {
-      renderArticles(cache[currentSeries]);
+      renderArticleList(cache[currentSeries]);
     } else {
       showEmpty();
     }
@@ -417,24 +570,17 @@ function showEmpty() {
 }
 
 function showSkeleton() {
-  document.getElementById('content').innerHTML = `
-    <div class="skeleton">
-      <div class="skel-line short"></div>
-      <div class="skel-line full" style="margin-top:16px;height:16px"></div>
-      <div class="skel-line full"></div>
-      <div class="skel-line medium"></div>
-    </div>
-    <div class="skeleton">
-      <div class="skel-line short"></div>
-      <div class="skel-line full" style="margin-top:16px;height:16px"></div>
-      <div class="skel-line full"></div>
-      <div class="skel-line medium"></div>
-    </div>
-    <div class="skeleton">
-      <div class="skel-line short"></div>
-      <div class="skel-line full" style="margin-top:16px;height:16px"></div>
-      <div class="skel-line full"></div>
+  const card = () => `
+    <div class="skeleton-card">
+      <div class="skeleton-img"></div>
+      <div class="skeleton-text-block">
+        <div class="skel-line short"></div>
+        <div class="skel-line full" style="margin-top:10px;height:16px"></div>
+        <div class="skel-line medium"></div>
+      </div>
     </div>`;
+  document.getElementById('content').innerHTML =
+    `<div class="article-list">${card()}${card()}${card()}</div>`;
 }
 
 async function callClaude(userMessage) {
@@ -465,6 +611,11 @@ function extractJSON(text) {
   return JSON.parse(cleaned);
 }
 
+function imageUrlFor(query, seed) {
+  const q = encodeURIComponent(query || "motorsport racing");
+  return `https://source.unsplash.com/800x600/?${q}&sig=${seed}`;
+}
+
 async function loadDigest() {
   const btn = document.getElementById('btn-refresh');
   btn.classList.add('loading');
@@ -482,8 +633,12 @@ async function loadDigest() {
       throw new Error("Aucun article généré");
     }
 
+    articles.forEach((a, i) => {
+      a._imgSeed = Date.now() + i;
+    });
+
     cache[currentSeries] = articles;
-    renderArticles(articles);
+    renderArticleList(articles);
 
     const now = new Date();
     document.getElementById('last-update').textContent =
@@ -502,26 +657,61 @@ async function loadDigest() {
   }
 }
 
-function renderArticles(articles) {
-  const html = articles.map(article => {
-    const paragraphs = article.body
-      .split('\n')
-      .map(p => p.trim())
-      .filter(p => p.length > 0)
-      .map(p => `<p>${p}</p>`)
-      .join('');
-
+function renderArticleList(articles) {
+  const html = articles.map((article, idx) => {
+    const imgUrl = imageUrlFor(article.imageQuery, article._imgSeed || idx);
     return `
-      <div class="digest-card">
-        <div class="digest-header">
-          <span class="series-badge badge-${currentSeries}">${article.category || currentSeries}</span>
-          <span class="digest-title">${article.title}</span>
+      <div class="article-card" onclick="openReader(${idx})">
+        <img class="article-image img-loading" src="${imgUrl}" alt="${article.title}"
+             onload="this.classList.remove('img-loading')"
+             onerror="this.classList.remove('img-loading'); this.src='https://source.unsplash.com/800x600/?motorsport,racing&sig=${idx}'">
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="series-badge badge-${currentSeries}">${article.category || currentSeries}</span>
+          </div>
+          <div class="article-list-title">${article.title}</div>
+          <div class="article-excerpt">${article.excerpt || ''}</div>
         </div>
-        <div class="digest-body">${paragraphs}</div>
       </div>`;
   }).join('');
 
-  document.getElementById('content').innerHTML = html;
+  document.getElementById('content').innerHTML = `<div class="article-list">${html}</div>`;
+}
+
+function openReader(idx) {
+  const article = cache[currentSeries][idx];
+  if (!article) return;
+
+  const imgUrl = imageUrlFor(article.imageQuery, article._imgSeed || idx);
+  const img = document.getElementById('reader-image');
+  img.classList.add('img-loading');
+  img.src = imgUrl;
+  img.onload = () => img.classList.remove('img-loading');
+  img.onerror = () => {
+    img.classList.remove('img-loading');
+    img.src = `https://source.unsplash.com/1200x800/?motorsport,racing&sig=${idx}`;
+  };
+
+  document.getElementById('reader-badge').textContent = article.category || currentSeries;
+  document.getElementById('reader-badge').className = `series-badge badge-${currentSeries}`;
+  document.getElementById('reader-title').textContent = article.title;
+
+  const paragraphs = article.body
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p.length > 0)
+    .map(p => `<p>${p}</p>`)
+    .join('');
+  document.getElementById('reader-text').innerHTML = paragraphs;
+
+  document.getElementById('reader-overlay').classList.add('open');
+  document.getElementById('reader-overlay').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReader() {
+  document.getElementById('reader-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 </script>
 </body>
