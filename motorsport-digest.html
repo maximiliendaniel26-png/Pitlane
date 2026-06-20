@@ -473,7 +473,7 @@ const SERIES_CONFIG = {
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si une course a eu lieu récemment, la synthèse complète du dernier Grand Prix (résultats, déroulé de course, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat, transferts ou rumeurs de pilotes, actu technique/réglementaire, déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
-Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "Formula 1 podium champagne celebration", "Formula 1 pit stop tyre change", "Formula 1 race start grid"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageUrl" : cherche sur le web une VRAIE URL d'image libre de droit ou éditoriale (se terminant idéalement par .jpg, .jpeg, .png ou .webp) qui illustre bien le sujet — par exemple une photo Wikimedia Commons, une image libre de droit d'agence, ou un visuel officiel de presse en rapport avec l'événement. L'URL doit être directement utilisable comme src d'une balise <img>, donc pointer vers le fichier image lui-même, pas vers une page web. Si tu ne trouves vraiment aucune URL d'image fiable, laisse imageUrl à une chaîne vide "".
 
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
@@ -482,7 +482,7 @@ Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de
       "category": "Résultat course" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
       "excerpt": "phrase d'accroche courte",
-      "imageQuery": "mots-clés anglais pour image",
+      "imageUrl": "URL directe vers un fichier image (.jpg/.png/.webp) ou chaîne vide",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -496,7 +496,7 @@ Date d'aujourd'hui : ${new Date().toLocaleDateString('fr-FR')}.`
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si un rallye a eu lieu récemment, la synthèse complète du dernier rallye (résultats, déroulé, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat, transferts ou rumeurs pilotes/co-pilotes, actu technique/réglementaire, déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
-Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "rally car gravel jump", "rally car snow stage", "WRC rally car forest stage"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageUrl" : cherche sur le web une VRAIE URL d'image libre de droit ou éditoriale (se terminant idéalement par .jpg, .jpeg, .png ou .webp) qui illustre bien le sujet — par exemple une photo Wikimedia Commons, une image libre de droit d'agence, ou un visuel officiel de presse en rapport avec l'événement. L'URL doit être directement utilisable comme src d'une balise <img>, donc pointer vers le fichier image lui-même, pas vers une page web. Si tu ne trouves vraiment aucune URL d'image fiable, laisse imageUrl à une chaîne vide "".
 
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
@@ -505,7 +505,7 @@ Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de
       "category": "Résultat rallye" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
       "excerpt": "phrase d'accroche courte",
-      "imageQuery": "mots-clés anglais pour image",
+      "imageUrl": "URL directe vers un fichier image (.jpg/.png/.webp) ou chaîne vide",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -519,7 +519,7 @@ Date d'aujourd'hui : ${new Date().toLocaleDateString('fr-FR')}.`
 
 Identifie tous les sujets distincts qui méritent un article séparé aujourd'hui. Le premier article doit TOUJOURS être, si une course a eu lieu récemment, la synthèse complète de la dernière course/des 24H du Mans (résultats, déroulé, faits marquants). Ajoute ensuite d'autres articles séparés selon l'actualité réelle : classement championnat constructeurs/pilotes, transferts ou rumeurs, actu technique/réglementaire (Hypercar, LMGT3...), déclarations marquantes, calendrier, etc. Le nombre total d'articles dépend de l'actualité réelle du jour — n'invente rien, ne force pas un nombre fixe.
 
-Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageQuery" : 2-4 mots-clés EN ANGLAIS décrivant une image qui illustrerait bien le sujet (ex: "Le Mans 24 hours night race", "endurance racing car pit lane", "Le Mans Hypercar track"). Ne mentionne jamais de nom de pilote ou marque précise dans imageQuery, reste générique sur l'ambiance/action.
+Pour chaque article, fournis aussi un court "excerpt" (1 phrase d'accroche, 15 mots max) et un "imageUrl" : cherche sur le web une VRAIE URL d'image libre de droit ou éditoriale (se terminant idéalement par .jpg, .jpeg, .png ou .webp) qui illustre bien le sujet — par exemple une photo Wikimedia Commons, une image libre de droit d'agence, ou un visuel officiel de presse en rapport avec l'événement. L'URL doit être directement utilisable comme src d'une balise <img>, donc pointer vers le fichier image lui-même, pas vers une page web. Si tu ne trouves vraiment aucune URL d'image fiable, laisse imageUrl à une chaîne vide "".
 
 Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de balises markdown), au format suivant :
 {
@@ -528,7 +528,7 @@ Réponds UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de
       "category": "Résultat course" | "Championnat" | "Transferts" | "Technique" | "Déclarations" | "Calendrier" | autre catégorie courte pertinente,
       "title": "titre accrocheur 6-10 mots",
       "excerpt": "phrase d'accroche courte",
-      "imageQuery": "mots-clés anglais pour image",
+      "imageUrl": "URL directe vers un fichier image (.jpg/.png/.webp) ou chaîne vide",
       "body": "2 à 3 paragraphes de texte journalistique factuel en français, séparés par \\n\\n"
     }
   ]
@@ -611,9 +611,17 @@ function extractJSON(text) {
   return JSON.parse(cleaned);
 }
 
-function imageUrlFor(query, seed) {
-  const q = encodeURIComponent(query || "motorsport racing");
-  return `https://source.unsplash.com/800x600/?${q}&sig=${seed}`;
+function imageUrlFor(article) {
+  return (article && article.imageUrl && article.imageUrl.trim()) || "";
+}
+
+function fallbackGradientFor(series) {
+  const gradients = {
+    F1:  "linear-gradient(135deg, #2a0a0c 0%, #7a1218 50%, #e8212b 100%)",
+    WRC: "linear-gradient(135deg, #0a1626 0%, #1e3a5f 50%, #3b82f6 100%)",
+    WEC: "linear-gradient(135deg, #2a1d00 0%, #4a3000 50%, #f59e0b 100%)"
+  };
+  return gradients[series] || gradients.F1;
 }
 
 async function loadDigest() {
@@ -632,10 +640,6 @@ async function loadDigest() {
     if (articles.length === 0) {
       throw new Error("Aucun article généré");
     }
-
-    articles.forEach((a, i) => {
-      a._imgSeed = Date.now() + i;
-    });
 
     cache[currentSeries] = articles;
     renderArticleList(articles);
@@ -659,12 +663,16 @@ async function loadDigest() {
 
 function renderArticleList(articles) {
   const html = articles.map((article, idx) => {
-    const imgUrl = imageUrlFor(article.imageQuery, article._imgSeed || idx);
+    const imgUrl = imageUrlFor(article);
+    const gradient = fallbackGradientFor(currentSeries);
+    const imgTag = imgUrl
+      ? `<img class="article-image img-loading" src="${imgUrl}" alt="${article.title}"
+             onload="this.classList.remove('img-loading')"
+             onerror="this.style.background='${gradient}'; this.classList.remove('img-loading'); this.removeAttribute('src');">`
+      : `<div class="article-image" style="background:${gradient}"></div>`;
     return `
       <div class="article-card" onclick="openReader(${idx})">
-        <img class="article-image img-loading" src="${imgUrl}" alt="${article.title}"
-             onload="this.classList.remove('img-loading')"
-             onerror="this.classList.remove('img-loading'); this.src='https://source.unsplash.com/800x600/?motorsport,racing&sig=${idx}'">
+        ${imgTag}
         <div class="article-content">
           <div class="article-meta">
             <span class="series-badge badge-${currentSeries}">${article.category || currentSeries}</span>
@@ -682,15 +690,24 @@ function openReader(idx) {
   const article = cache[currentSeries][idx];
   if (!article) return;
 
-  const imgUrl = imageUrlFor(article.imageQuery, article._imgSeed || idx);
+  const imgUrl = imageUrlFor(article);
+  const gradient = fallbackGradientFor(currentSeries);
   const img = document.getElementById('reader-image');
-  img.classList.add('img-loading');
-  img.src = imgUrl;
-  img.onload = () => img.classList.remove('img-loading');
-  img.onerror = () => {
+  if (imgUrl) {
+    img.style.background = '#1a1a1a';
+    img.classList.add('img-loading');
+    img.src = imgUrl;
+    img.onload = () => img.classList.remove('img-loading');
+    img.onerror = () => {
+      img.classList.remove('img-loading');
+      img.removeAttribute('src');
+      img.style.background = gradient;
+    };
+  } else {
+    img.removeAttribute('src');
     img.classList.remove('img-loading');
-    img.src = `https://source.unsplash.com/1200x800/?motorsport,racing&sig=${idx}`;
-  };
+    img.style.background = gradient;
+  }
 
   document.getElementById('reader-badge').textContent = article.category || currentSeries;
   document.getElementById('reader-badge').className = `series-badge badge-${currentSeries}`;
